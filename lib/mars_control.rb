@@ -1,5 +1,5 @@
-require_relative 'compass_point'
-require_relative 'rover'
+require 'compass_point'
+require 'rover'
 
 class MarsControl
   attr_accessor :plateau, :rovers
@@ -26,7 +26,7 @@ class MarsControl
       else
         roverParams = line.strip.scan(/\S+/)
 
-        @rovers << Rover.new(roverParams[0].to_i, roverParams[1].to_i, roverParams[2].upcase, @plateau)
+        @rovers << Rover.new(x: roverParams[0].to_i, y: roverParams[1].to_i, face: roverParams[2].upcase, plateau: @plateau)
       end
     end
   end

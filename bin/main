@@ -1,18 +1,19 @@
 #!/usr/bin/env ruby
 
-require_relative '../mars_control'
+lib = File.expand_path('../lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-filename = 'rover_data.txt'
-puts "====\nUsing file: #{filename}\n====\n"
+require 'mars_control'
 
-puts "Input Data:\n"
-File::read(filename).each_line { |each_line| puts each_line.strip }
+filename = File.expand_path('../rover_data.txt', __dir__)
+
 puts "====\n"
+puts "Using File: #{filename}\n====\n"
+puts "Input Data:\n#{File.read(filename).strip}\n=====\n"
 
-compass = CompassPoint.new()
 control = MarsControl.new(filename)
 
-puts "Ending positions for the rover(s):\n\n"
+puts "Ending positions for the rover(s):\n=====\n"
 control.rovers.each do |rover|
-  puts "#{rover.x} #{rover.y} #{compass.getDirectionFromInt(rover.face)}"
+  puts "#{rover.x} #{rover.y} #{rover.face}"
 end
