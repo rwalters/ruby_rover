@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require_relative '../mars_control'
+
+filename = 'rover_data.txt'
+puts "====\nUsing file: #{filename}\n====\n"
+
+puts "Input Data:\n"
+File::read(filename).each_line { |each_line| puts each_line.strip }
+puts "====\n"
+
+compass = CompassPoint.new()
+control = MarsControl.new(filename)
+
+puts "Ending positions for the rover(s):\n\n"
+control.rovers.each do |rover|
+  puts "#{rover.x} #{rover.y} #{compass.getDirectionFromInt(rover.face)}"
+end
