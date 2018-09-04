@@ -9,8 +9,8 @@ class Rover
     @plateau = plateau
     @compass = CompassPoint.new()
 
-    face  = @compass.getDirectionFromString(face) if face.is_a?(String)
-    @face = @compass.getDirectionFromInt(face)
+    face  = compass.getDirectionFromString(face) if face.is_a?(String)
+    @face = compass.getDirectionFromInt(face)
   end
 
   def go_L
@@ -52,16 +52,8 @@ class Rover
   private
 
   def check_params(x, y, face, plateau)
-    raise TypeError, 'The direction the rover faces must be a number or a string.' unless (face.is_a?(String) || face.is_a?(Integer))
+    args = {x: x, y: y, face: face, plateau: plateau}
 
-    raise TypeError, 'The X coordinate must be a number.' unless x.is_a?(Integer)
-    raise TypeError, 'The Y coordinate must be a number.' unless y.is_a?(Integer)
-    raise RangeError, 'X coordinate is not on the plateau' if (x > plateau[:x] || x < 0)
-    raise RangeError, 'Y coordinate is not on the plateau.' if (y > plateau[:y] || y < 0)
-
-    raise TypeError, 'The plateau must be a hash.' unless plateau.class == Hash
-    raise 'The plateau hash must have :x and :y values.' if (plateau[:x].nil? || plateau[:y].nil?)
-    raise TypeError, 'The :x and :y values of the plateau must be numbers.' unless(plateau[:x].is_a?(Integer) && plateau[:y].is_a?(Integer))
-    raise RangeError, 'The :x and :y values of the plateau must be greater than zero.' if (plateau[:x] < 1 || plateau[:y] < 1)
+    Validations.check(args)
   end
 end

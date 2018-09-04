@@ -15,5 +15,5 @@ control = MarsControl.new(filename)
 
 puts "Ending positions for the rover(s):\n=====\n"
 control.rovers.each do |rover|
-  puts "#{rover.x} #{rover.y} #{rover.face}"
+  puts rover.to_s
 end

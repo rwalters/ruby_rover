@@ -1,4 +1,5 @@
 require 'compass_point'
+require 'validations'
 require 'rover'
 
 class MarsControl
